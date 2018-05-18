@@ -1,0 +1,57 @@
+server:
+  port: 8080 #启动端口
+  tomcat:
+    min-spare-threads: 20
+    max-threads: 100
+
+spring:
+  application:
+    name: system
+  datasource:
+    name: system
+    url: jdbc:mysql://localhost:3306/system?useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat,wall,log4j
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+
+# 通用mybatis 的mapper配置
+mapper:
+  mappers:
+        -  com.sys.system.base.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+# 分页配置(由于版本问题,这里配置无效,转到类中配置)
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  helper-dialect: mysql
+
+#日志配置
+logging:
+  level:
+    org.springframework.security: debug
+    com.sys.system.mapper: debug
+
+
+
+
